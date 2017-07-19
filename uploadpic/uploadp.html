@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>上传图片案例（借鉴）</title>	
+        <script src="js/jquery.min.js"></script>
+        <script type="text/javascript">
+            document.domain = "ddopo.com"; //跨子域
+            var imgBasePath = "http://www.ddopo.com" //静态资源路径
+        </script>	
+	</head>
+	<body>
+		<div class="pImgItem uploadTarget" onclick="$('#base64_up_file').click()">
+           添加图片
+        </div>
+		
+		<div style="display:none">
+            <form id="base64_up_form" action="/upload.html" enctype="multipart/form-data" method="post" target="base64_up">
+                <input type="hidden" name="authkey" value="FC1E530BE622FEFD5745EE121A9776CB"/>
+                <input type="hidden" name="type" value="2"/>
+                <input type="file" name="file" id="base64_up_file" />
+                <iframe name="base64_up" id="base64_up" style="display:none;"></iframe>
+                <input type="submit"/>
+            </form>
+        </div>
+	</body>
+    
+    <script>
+        $("#base64_up_file").change(function(){
+            $('#base64_up_form').submit();
+        });
+        $("#base64_up").on("load", function(){
+            layer.closeAll();
+            var r =  this.contentWindow.document.getElementById('jsonData').innerHTML;
+            var imgData = JSON.parse(r);
+            if(imgData.code !=1){
+                alert_msg(imgData.info)
+            }else{
+                var _src = imgBasePath + imgData.data;
+                var _dom = '<div class="pImgItem view"><div class="vPic"><img src="'+_src+'"></div><span class="delIcon" onclick="$(this).parent().remove()"></span><input type="hidden" value="'+imgData.data+'"></div>';
+                $('#viewPhoto').append(_dom)
+            }
+        }); 
+    </script>
+</html>
