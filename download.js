@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 
 
 //下载 的文件 地址 （https://nodejs.org/dist/v12.18.3/node-v12.18.3-x64.msigroup-brazil.com/group-brazil.com.tar.gz）
-let fileURL = 'https://group-brazil.com/group-brazil.com.tar.gz';
+let fileURL = 'https://nodejs.org/dist/v12.18.3/node-v12.18.3-x64.msi';
 
 
 //下载保存的文件路径
